@@ -4,7 +4,8 @@ module.exports = function (api) {
     presets: ['babel-preset-expo'],
     plugins: [
       require.resolve('expo-router/babel'),
-      'react-native-reanimated/plugin',
+      ['module-resolver', { alias: { '@': './' } }],
+      'react-native-reanimated/plugin', // (사용 중이면) 항상 마지막
     ],
   };
 };

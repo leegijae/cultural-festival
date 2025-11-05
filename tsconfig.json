@@ -8,10 +8,12 @@
     "baseUrl": ".",
     "strict": true,
     "skipLibCheck": true,
+    "paths": { "@/*": ["./*"] },
     "lib": [
       "esnext",
       "dom"
     ]
+    
   },
   "include": [
     "**/*.ts",

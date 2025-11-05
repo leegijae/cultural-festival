@@ -1,35 +1,23 @@
+import { View, Text, Image, ScrollView } from "react-native";
 import { useLocalSearchParams } from "expo-router";
-import { View, Text, ScrollView, Image } from "react-native";
-import { useEffect, useState } from "react";
-import { Festival } from "../../lib/types";
-import { fetchFestivals } from "../../lib/api";
+import AppHeader from "@/components/AppHeader";
 
 export default function FestivalDetail() {
   const { id } = useLocalSearchParams<{ id: string }>();
-  const [item, setItem] = useState<Festival | null>(null);
-
-  useEffect(() => {
-    (async () => {
-      const list = await fetchFestivals({ region: null, freeOnly: false, q: "" });
-      setItem(list.find((x) => x.id === id) ?? null);
-    })();
-  }, [id]);
-
-  if (!item) return null;
-
+  // TODO: id로 상세 데이터 fetch
   return (
-    <ScrollView className="flex-1">
-      {item.imageUrl && (
-        <Image source={{ uri: item.imageUrl }} className="w-full h-56" />
-      )}
-      <View className="p-4">
-        <Text className="text-xl font-bold">{item.title}</Text>
-        <Text className="text-sm text-gray-600 mt-1">
-          {item.region} · {item.startDate} ~ {item.endDate}
-        </Text>
-        {item.venue && <Text className="mt-2">{item.venue}</Text>}
-        {/* 추후: 지도, 티켓/홈페이지 링크, 리뷰/사진, 즐겨찾기 버튼 등 */}
-      </View>
-    </ScrollView>
+    <View className="flex-1 bg-surface">
+      <AppHeader />
+      <ScrollView className="flex-1">
+        <Image source={{ uri: "https://placehold.co/1200x600" }} className="w-full h-64" />
+        <View className="p-4 gap-3">
+          <Text className="text-2xl font-bold">Festival {id}</Text>
+          <Text className="text-neutral-400">Seoul · Dec 1–3, 2025</Text>
+          <Text className="leading-6">
+            Detailed description… (from API)
+          </Text>
+        </View>
+      </ScrollView>
+    </View>
   );
 }
